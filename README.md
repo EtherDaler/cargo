@@ -28,6 +28,8 @@
 }
 ```
 - install vue-cli
+- изнутри папки frontend запустить ``npm install`` чтобы установить все необходимые пакеты
+- можно просто следовать инструкции из ридмишника внутри папки frontend
 - build vue project inside frontend folder with command `npm run build`
 - run ``python manage.py makemigrations`` and then `python manage.py migrate` to create migrations in database
 - edit ``ALLOWED_HOSTS = []`` to ``ALLOWED_HOSTS = [<your website domen>, <your website ip>]``
