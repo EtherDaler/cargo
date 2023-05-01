@@ -20,6 +20,11 @@ def now():
     instance_time_zone = pytz.timezone(settings.TIME_ZONE)
     return instance_time_zone.normalize(utc.astimezone(instance_time_zone))
 
+def geturl():
+    if len(settings.ALLOWED_HOSTS) != 0:
+        return settings.ALLOWED_HOSTS[0]
+    return "127.0.0.1:8080"
+
 
 class UserManager(BaseUserManager):
     def create_user(self, phone, password=None):
@@ -33,7 +38,7 @@ class UserManager(BaseUserManager):
         user = self.model(
             phone=phone,
         )
-        qr_code = qrcode.make('http://127.0.0.1:8000/user/' + str(phone))
+        qr_code = qrcode.make('https://' + geturl() + '/user/' + str(phone))
         url = 'media/user/images/qr_code/qr_' + str(phone) + '-' + str(default_datetime().hour) + '-' \
               + str(default_datetime().minute) + '-' + str(default_datetime().second) + '.png'
         file = qr_code.save('media/user/images/qr_code/qr_' + str(phone) + '-' + str(default_datetime().hour) + '-' \

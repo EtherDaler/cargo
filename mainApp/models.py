@@ -1,6 +1,7 @@
 import datetime
 import qrcode
 
+from django.conf import settings
 from django.db import models
 from user.models import User
 from countries.models import Countries, Cities
@@ -10,6 +11,11 @@ from pytils.translit import slugify
 
 def default_datetime():
     return datetime.datetime.now()
+
+def geturl():
+    if len(settings.ALLOWED_HOSTS) != 0:
+        return settings.ALLOWED_HOSTS[0]
+    return "127.0.0.1:8080"
 
 
 class Shipment(models.Model):
@@ -97,7 +103,7 @@ class Cargoes(models.Model):
             self.slug = slugify(self.name + '-' + str(id + 1) + '-' + str(self.date_create.day * self.date_create.second)
                                 + '-' + str(self.date_create.month * self.date_create.minute)
                                 + '-' + str(self.date_create.year * self.date_create.hour))
-            qr_code = qrcode.make('http://127.0.0.1:8000/api/v1/cargoes/' + self.slug)
+            qr_code = qrcode.make("https://" + geturl() + '/cargoes/' + self.slug)
             url = 'media/mainApp/images/qr_code/qr_' + self.slug + '-' + str(default_datetime().hour) + '-' \
                   + str(default_datetime().minute) + '-' + str(default_datetime().second) + '.png'
             file = qr_code.save(url)
