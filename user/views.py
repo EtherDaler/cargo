@@ -27,7 +27,6 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework import status
 
 from .models import User
-from .forms import UserCreationForm, UserChangeForm
 from .decorators import authenticated, unauthenticated
 from .serializers import UserSerializer, MinUserSerializer
 from .validators import phone_validate
@@ -60,26 +59,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return self.queryset.filter(pk=self.request.user.id)
         return self.queryset
-
-def registration(request):
-    form = UserCreationForm()
-    if request.method == "POST":
-        print("in post")
-        if form.is_valid():
-            phone = form.cleaned_data['country_code'] + form.cleaned_data['phone']
-            print(phone)
-            if phone_validate(phone):
-                messages.info(request, 'Неверно указан формат мобильного телефона')
-            else:
-                try:
-                    User.objects.get(phone=phone)
-                    messages.info(request, "This user already registered")
-                except User.DoesNotExist:
-                    form.save()
-    context = {
-        'form': form,
-    }
-    return render(request, 'user/register.html', context)
 
 def activate(request):
     # email activation
