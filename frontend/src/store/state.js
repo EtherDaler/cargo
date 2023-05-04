@@ -1,10 +1,12 @@
 // https://vuex.vuejs.org/en/state.html
+import json from './conf.json'
+
 
 export default {
-	apiKey: 'TfcJOpYR.nasUpbIF4y95HeE02mRusL0R1KAfVCBt',
+	apiKey: json["ApiKey"],
 	authStatus: false,
 	auth_error: '',
-	backendURL: "http://127.0.0.1:8000/api/v1",
+	backendURL: json["BackendUrl"],
 	currentTime: new Date().toLocaleString(),
 	token: '',
 	user_id: '',
