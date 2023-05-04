@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'django.forms',
     'rest_framework.authtoken',
     'oauth2_provider',
-    'social_django',
     'drf_social_oauth2',
     #'rest_framework_social_oauth2',
     "user",
