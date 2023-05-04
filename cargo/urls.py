@@ -9,7 +9,6 @@ urlpatterns = [
     path("api/v1/cargoes/", include('mainApp.urls')),
     path("api/v1/felials/", include('felials.urls')),
     path("api/v1/locations/", include('countries.urls')),
-    path('api/v1/oauth/', include('drf_social_oauth2.urls',)),
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth/', include('djoser.urls.authtoken')),
     path('api/v1/auth/', include('djoser.urls.jwt')),
