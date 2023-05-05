@@ -76,8 +76,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = "cargo.urls"
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOWED_ORIGINS = ["http://localhost:8080"]
-CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]
+CORS_ALLOWED_ORIGINS = secrets["CORS_ALLOWED"]
+CORS_ORIGIN_WHITELIST = secrets["CORS_ALLOWED"]
 CORS_ALLOW_HEADERS = [
     "accept",
     "accept-encoding",
@@ -218,8 +218,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static/',
+]
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
