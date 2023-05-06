@@ -1,15 +1,19 @@
+// eslint-disable-next-line no-undef
+const path = require('path');
+
 module.exports = {
   devServer: {
     disableHostCheck: true,
   },
-
-  outputDir: "dist/static/",
+  css: {
+    extract: true,
+  },
+  publicPath: '/static/src/vue/dist/', // Should be STATIC_URL + path/to/build
   // eslint-disable-next-line no-undef
-  indexPath: '../index.html',
-  // Куда пойдут ассеты (относительно outputDir)
-  assetsDir: '', // ассеты храним там же, где и JS/CSS
-  lintOnSave: true,
-  runtimeCompiler: true,
+  outputDir: path.resolve(__dirname, '../static/src/vue/dist/'), // Output to a directory in STATICFILES_DIRS
+  indexPath: '../../../../templates/start/index.html',
+  filenameHashing: false, // Django will hash file names, not webpack
+  runtimeCompiler: true, // See: https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
 
   transpileDependencies: [
     'vuetify'
