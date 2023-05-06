@@ -25,4 +25,4 @@ What-is-this.txt
 workspace.code-workspace
 
 
-src/store/conf.json
+/src/store/conf.json
