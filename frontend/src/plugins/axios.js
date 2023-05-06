@@ -3,6 +3,7 @@ import axios from "axios";
 import NProgress from "nprogress";
 import store from "@/store";
 
+console.log(store.getters.getServerURL)
 // creates a new instance that you will call instead of axios.
 const restApi = axios.create({
 	// eslint-disable-next-line no-undef
