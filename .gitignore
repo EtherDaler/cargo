@@ -1,3 +1,4 @@
 cargo/secrets.json
 myvenv
 .idea
+frontend/src/store/conf.json
