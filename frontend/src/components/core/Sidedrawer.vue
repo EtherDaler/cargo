@@ -73,12 +73,12 @@ export default {
 					text: "User Profile",
           role: []
 				},
-				{
+				/*{
 					to: "/table-list",
 					icon: "mdi-application",
 					text: "Basic Tables",
           role: []
-				},
+				},*/
 				{
 					to: "/data-tables",
 					icon: "mdi-application-cog",

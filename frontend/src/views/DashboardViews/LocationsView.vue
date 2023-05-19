@@ -26,7 +26,7 @@
                   class="ma-2 px-8"
                   color="secondary"
               ></v-text-field>
-              <CountryCreateView/>
+              <CountryCreateView :onCreate="updateCountries"/>
             </v-toolbar>
           </template>
           <template v-slot:[`item.name`]="{ item }">
@@ -70,7 +70,7 @@
                   class="ma-2 px-8"
                   color="secondary"
               ></v-text-field>
-              <CityCreateView/>
+              <CityCreateView :onCreate="updateCities"/>
             </v-toolbar>
           </template>
           <template v-slot:[`item.name`]="{ item }">
@@ -170,6 +170,12 @@ export default {
             this.citiesList = response.data
           })
           .catch((error) => console.log(error));
+    },
+    updateCountries(data) {
+      this.countriesList.push(data)
+    },
+    updateCities(data) {
+      this.citiesList.push(data)
     }
   },
 };

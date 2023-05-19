@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Shipment, Status, PayType, PayStatus, Events, Cargoes
+from .models import Shipment, Status, PayType, PayStatus, Events, Cargoes, WorkStatus, AcceptType
 from felials.serializers import FelialsSerializer
 from user.models import User
 from countries.models import Countries, Cities
@@ -33,6 +33,18 @@ class PayTypeSerializator(serializers.ModelSerializer):
         fields = ('__all__')
 
 
+class WorkStatusSerializator(serializers.ModelSerializer):
+    class Meta:
+        model = WorkStatus
+        fields = ('__all__')
+
+
+class AcceptTypeSerializator(serializers.ModelSerializer):
+    class Meta:
+        model = AcceptType
+        fields = ('__all__')
+
+
 class EventsSerialzer(serializers.ModelSerializer):
     before = serializers.CharField(source='before.name')
     after = serializers.CharField(source='after.name')
@@ -50,12 +62,14 @@ class CargoesSerializer(serializers.HyperlinkedModelSerializer):
     shipping_type = ShipmentSerializer()
     status = StatusSerializer()
     felial = FelialsSerializer()
-    recipient = serializers.CharField(source='recipient.phone')
-    sender = serializers.CharField(source='sender.phone')
-    sender_country = serializers.CharField(source='sender_country.name')
-    recipient_country = serializers.CharField(source='recipient_country.name')
-    sender_city = serializers.CharField(source='sender_city.name')
-    recipient_city = serializers.CharField(source='recipient_city.name')
+    work_status = WorkStatusSerializator()
+    accept_type = AcceptTypeSerializator()
+    #recipient = serializers.CharField(source='recipient.phone')
+    #sender = serializers.CharField(source='sender.phone')
+    sender_country = CountriesSerializator()
+    recipient_country = CountriesSerializator()
+    sender_city = CitiesSerializator()
+    recipient_city = CitiesSerializator()
     events = EventsSerialzer(many=True)
 
     class Meta:
@@ -67,8 +81,12 @@ class CargoesSerializer(serializers.HyperlinkedModelSerializer):
             'shipping_date',
             'shipping_type',
             'felial',
-            'sender',
-            'recipient',
+            'sender_phone',
+            'sender_fullname',
+            'sender_email',
+            'recipient_phone',
+            'recipient_fullname',
+            'recipient_email',
             'status',
             'weight',
             'weight_type',
@@ -84,6 +102,8 @@ class CargoesSerializer(serializers.HyperlinkedModelSerializer):
             'pay_status',
             'payment_date',
             'total_price',
+            'work_status',
+            'accept_type',
             'qr_code',
             'slug',
             'events'
@@ -96,12 +116,14 @@ class CargoesCreateSerializer(serializers.HyperlinkedModelSerializer):
     pay_status = serializers.PrimaryKeyRelatedField(queryset=PayStatus.objects.all(), many=False)
     status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), many=False)
     shipping_type = serializers.PrimaryKeyRelatedField(queryset=Shipment.objects.all(), many=False)
-    recipient = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=False)
-    sender = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=False)
+    #recipient = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=False)
+    #sender = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=False)
     sender_country = serializers.PrimaryKeyRelatedField(queryset=Countries.objects.all(), many=False)
     recipient_country = serializers.PrimaryKeyRelatedField(queryset=Countries.objects.all(), many=False)
     sender_city = serializers.PrimaryKeyRelatedField(queryset=Cities.objects.all(), many=False)
     recipient_city = serializers.PrimaryKeyRelatedField(queryset=Cities.objects.all(), many=False)
+    work_status = serializers.PrimaryKeyRelatedField(queryset=WorkStatus.objects.all(), many=False)
+    accept_type = serializers.PrimaryKeyRelatedField(queryset=AcceptType.objects.all(), many=False)
 
     class Meta:
         model = Cargoes

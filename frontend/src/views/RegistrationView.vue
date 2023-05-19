@@ -50,6 +50,9 @@
           </v-card-text>
           <v-divider class="mt-5" />
           <v-card-actions>
+            <router-link to="login">
+              Login
+            </router-link>
             <v-spacer />
             <v-btn align-center justify-center color="tertiary"
                    :disabled="!passMatch || !password || !password2 || !phone ||

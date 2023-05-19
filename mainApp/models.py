@@ -62,6 +62,28 @@ class PayStatus(models.Model):
         return self.name
 
 
+class WorkStatus(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название")
+
+    class Meta:
+        verbose_name = 'Статусы работы'
+        verbose_name_plural = 'Статусы работы'
+
+    def __str__(self):
+        return self.name
+
+
+class AcceptType(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название")
+
+    class Meta:
+        verbose_name = 'Тип принятия'
+        verbose_name_plural = 'Тип принятия'
+
+    def __str__(self):
+        return self.name
+
+
 class Cargoes(models.Model):
     date_create = models.DateTimeField(verbose_name="Дата и время создания", blank=True)
     name = models.CharField(max_length=255, verbose_name="Название груза", null=True)
@@ -69,10 +91,16 @@ class Cargoes(models.Model):
     shipping_type = models.ForeignKey(Shipment, on_delete=models.SET_NULL, null=True, verbose_name="Способ отправки")
     felial = models.ForeignKey(Felials, on_delete=models.SET_NULL, null=True, verbose_name="Фелиал",
                                related_name="cargoes")
-    sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Отправитель",
-                               related_name="cargoes_send")
-    recipient = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Получатель",
-                                  related_name="cargoes_recipient")
+    #sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Отправитель",
+    #                           related_name="cargoes_send")
+    #recipient = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Получатель",
+    #                              related_name="cargoes_recipient")
+    sender_phone = models.CharField(max_length=20, verbose_name="Номер отправителя", blank=True, null=True)
+    sender_fullname = models.CharField(max_length=255, verbose_name="ФИО отправителя", blank=True, null=True)
+    sender_email = models.CharField(max_length=255, verbose_name="ФИО отправителя", blank=True, null=True)
+    recipient_phone = models.CharField(max_length=20, verbose_name="Номер отправителя", blank=True, null=True)
+    recipient_fullname = models.CharField(max_length=255, verbose_name="ФИО отправителя", blank=True, null=True)
+    recipient_email = models.CharField(max_length=255, verbose_name="ФИО отправителя", blank=True, null=True)
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Статус")
     weight = models.PositiveIntegerField(verbose_name="Общий вес")
     weight_type = models.CharField(max_length=255, verbose_name="Единица измерения")
@@ -94,12 +122,19 @@ class Cargoes(models.Model):
     total_price = models.PositiveIntegerField(verbose_name="Общая стоимость")
     qr_code = models.ImageField(upload_to="mainApp/images/qr_code", verbose_name="QR", blank=True)
     bar_code = models.ImageField(upload_to="mainApp/images/bar_code", verbose_name="BAR", blank=True)
+    work_status = models.ForeignKey(WorkStatus, on_delete=models.SET_NULL, null=True, blank=True, related_name='cargoes',
+                                    verbose_name="Статус обработки")
+    accept_type = models.ForeignKey(AcceptType, on_delete=models.SET_NULL, null=True, blank=True, related_name='cargoes',
+                                    verbose_name="Тип выдачи")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL", null=True)
 
     def save(self, *args, **kwargs):
         if not self.pk:
             self.date_create = default_datetime()
-            id = Cargoes.objects.last().id
+            try:
+                id = Cargoes.objects.last().id
+            except:
+                id = 0
             self.slug = slugify(self.name + '-' + str(id + 1) + '-' + str(self.date_create.day * self.date_create.second)
                                 + '-' + str(self.date_create.month * self.date_create.minute)
                                 + '-' + str(self.date_create.year * self.date_create.hour))

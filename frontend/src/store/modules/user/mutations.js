@@ -3,6 +3,8 @@ export default {
         for (let key in userData) {
             state[key] = userData[key]
         }
+        state.role = userData['role']
+        state.phone = userData['phone']
         state.set = true
     },
 

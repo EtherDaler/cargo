@@ -23,7 +23,7 @@
                 class="ma-2 px-8"
                 color="secondary"
             ></v-text-field>
-            <ConnectedCreateView  :tableName="soloName" :url="url"></ConnectedCreateView>
+            <ConnectedCreateView  :tableName="soloName" :url="url" :onCreate="onUpdateData"></ConnectedCreateView>
           </v-toolbar>
         </template>
         <template v-slot:[`item.name`]="{ item }">
@@ -104,6 +104,10 @@ export default {
             this.dataList = response.data
           })
           .catch((error) => console.log(error));
+    },
+    onUpdateData(data) {
+      this.dataList.push(data);
+      console.log(data)
     },
   },
 }

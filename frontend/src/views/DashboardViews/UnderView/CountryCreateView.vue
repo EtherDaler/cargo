@@ -26,26 +26,26 @@
               <v-text-field
                   v-model="name"
                   :rules="[required]"
-                  label="Name"
+                  label="Название"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="initials"
                   :rules="[required]"
-                  label="Initials"
+                  label="Инициалы"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="code"
                   :rules="[required]"
-                  label="Code"
+                  label="Код"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-file-input
-                  label="Flag"
+                  label="Флаг"
                   v-model="flag"
                   filled
                   prepend-icon="mdi-camera"
@@ -74,6 +74,9 @@ import {genericApi} from "@/plugins/axios";
 
 export default {
   name: "CountryCreateView",
+  props: {
+    onCreate: Function,
+  },
   data: () => ({
     snack: false,
     max25chars: (v) => v.length <= 25 || "Input too long!",
@@ -140,29 +143,38 @@ export default {
     // closes the dialog pop up and resets index until its opened again
     close() {
       this.dialog = false;
+      this.name = ""
+      this.initials = ""
+      this.code = ""
+      this.flag = null
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1; // resets the index that controls the title text in the new item pop up
       }, 300);
     },
 
-    save() {
+    send(data) {
+      this.onCreate(data)
+    },
+
+    async save() {
       var body = new FormData();
       body.append('name', this.name)
       body.append('initials', this.initials)
       body.append('code', this.code)
       body.append('flag', this.flag)
-      console.log(this.flag)
-      genericApi
+      let data = {}
+      await genericApi
           .post('locations/countries/', body, {
             body: body
           })
           .then((response) => {
-            console.log(response)
+            data = response.data
           })
           .catch((error) => {
             console.log(error)
           })
+      this.send(data)
       this.close();
     },
 

@@ -17,7 +17,7 @@
     <v-card>
       <v-card-title>
         <!-- changes title based on formTitle index, -1 shows 'New item' any other index shows 'Edit Item' as the title -->
-        <span class="text-h5">Create Cargo</span>
+        <span class="text-h5">Создать посылку</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -26,14 +26,14 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="name"
-                  label="Name"
+                  label="Название"
                   :rules="[required]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="shipping_date"
-                  label="Shipping Date"
+                  label="Дата отправки"
                   :rules="[required]"
                   v-mask="'####-##-##'"
               ></v-text-field>
@@ -43,7 +43,7 @@
                   autocomplete="new-password"
                   v-model="shipping_type"
                   @click="getshipmentType"
-                  label="Shipping Type"
+                  label="Способ отгрузки"
                   :items="shippingTypeList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -53,27 +53,24 @@
                   autocomplete="new-password"
                   v-model="felial"
                   @click="getfilials"
-                  label="Filial"
+                  label="Филиал"
                   :items="filialsList"
                   :rules="[required]"
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-autocomplete
-                  autocomplete="new-password"
-                  v-model="sender"
-                  @click="getusers"
-                  label="Sender"
-                  :items="userList"
+              <v-text-field
+                  v-model="sender_phone"
+                  label="Телефон отправителя"
                   :rules="[required]"
-              ></v-autocomplete>
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-autocomplete
                   autocomplete="new-password"
                   v-model="sender_country"
                   @click="getcountries"
-                  label="Sender Country"
+                  label="Страна отправителя"
                   :items="countriesList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -83,27 +80,24 @@
                   autocomplete="new-password"
                   v-model="sender_city"
                   @click="getcities(sender_country)"
-                  label="Sender City"
+                  label="Город отправителя"
                   :items="citiesList"
                   :rules="[required]"
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-autocomplete
-                  autocomplete="new-password"
-                  v-model="recipient"
-                  @click="getusers"
-                  label="Recipient"
-                  :items="userList"
+              <v-text-field
+                  v-model="recipient_phone"
+                  label="Телефон получателя"
                   :rules="[required]"
-              ></v-autocomplete>
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-autocomplete
                   autocomplete="new-password"
                   v-model="recipient_country"
                   @click="getcountries"
-                  label="Recipient Country"
+                  label="Старана получателя"
                   :items="countriesList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -113,7 +107,7 @@
                   autocomplete="new-password"
                   v-model="recipient_city"
                   @click="getcities2(recipient_country)"
-                  label="Recipient City"
+                  label="Город получателя"
                   :items="citiesList2"
                   :rules="[required]"
               ></v-autocomplete>
@@ -123,7 +117,7 @@
                   autocomplete="new-password"
                   v-model="status"
                   @click="getstatus"
-                  label="Status"
+                  label="Статус"
                   :items="statusList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -131,42 +125,42 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="weight"
-                  label="Weight"
+                  label="Вес"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="weight_type"
-                  label="Weight Type"
+                  label="Единица измерения веса"
                   :rules="[required]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="delivery_day"
-                  label="Delivery Day"
+                  label="Длительность доставки"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="delivery_price"
-                  label="Delivery Price"
+                  label="Стоимость доставки"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="customs_clearance"
-                  label="Customs Clearance"
+                  label="Растаможка"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="extra_expenses"
-                  label="Extra Expenses"
+                  label="Дополнительные расходы"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
@@ -175,7 +169,7 @@
                   autocomplete="new-password"
                   v-model="pay_type"
                   @click="getpayType"
-                  label="Payment Type"
+                  label="Способ оплаты"
                   :items="payTypeList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -186,7 +180,7 @@
                   v-model="pay_status"
                   @click="getpayStatus"
                   :rules="[required]"
-                  label="Payment Status"
+                  label="Статус оплаты"
                   :items="payStatusList"
               ></v-autocomplete>
             </v-col>
@@ -194,15 +188,35 @@
               <v-text-field
                   v-model="payment_date"
                   :rules="[required]"
-                  label="Payment Date"
+                  label="Дата оплаты"
                   v-mask="'####-##-##'"
               ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-autocomplete
+                  autocomplete="new-password"
+                  v-model="accept_type"
+                  @click="getacceptType"
+                  :rules="[required]"
+                  label="Способ получения"
+                  :items="acceptTypeList"
+              ></v-autocomplete>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-autocomplete
+                  autocomplete="new-password"
+                  v-model="work_status"
+                  @click="getworkStatus"
+                  :rules="[required]"
+                  label="Статус в базе"
+                  :items="workStatusList"
+              ></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="total_price"
                   :rules="[required, numeric]"
-                  label="Total Price"
+                  label="Итоговая цена"
               ></v-text-field>
             </v-col>
 
@@ -229,6 +243,9 @@ import {genericApi} from "@/plugins/axios";
 
 export default {
   name: "CargoCreateVue",
+  props: {
+    onCreate: Function,
+  },
   data: () => ({
     snack: false,
     max25chars: (v) => v.length <= 25 || "Input too long!",
@@ -243,6 +260,10 @@ export default {
     citiesDict2: [],
     statusList: [],
     statusDict: [],
+    workStatusList: [],
+    workStatusDict: [],
+    acceptTypeList: [],
+    acceptTypeDict: [],
     filialsList: [],
     filialsDict: [],
     payTypeList: [],
@@ -258,32 +279,15 @@ export default {
       { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 },
     ],
     dialog: false,
-    search: "",
-    headers: [
-      {
-        text: "ID",
-        align: "start",
-        sortable: false,
-        value: "id",
-      },
-      { text: "Name", value: "name" },
-      { text: "Weight", value: "weight" },
-      { text: "Status", value: "status.name" },
-      { text: "Felial", value: "felial.name" },
-      { text: "Days for delivery", value: "delivery_day", sortable: false },
-      { text: "From", value: "recipient_city" },
-      { text: "Price", value: "total_price" },
-    ],
     editedIndex: -1,
     //this is the new item created by copying the userList item. its used in editing menu and methods
-
 
     name: "",
     shipping_date: "",
     shipping_type: "",
     felial: "",
-    sender: "",
-    recipient: "",
+    sender_phone: "",
+    recipient_phone: "",
     status: "",
     weight: "",
     weight_type: "",
@@ -299,6 +303,8 @@ export default {
     pay_status: "",
     payment_date: "",
     total_price: "",
+    work_status: "",
+    accept_type: "",
 
 
     //second table
@@ -438,6 +444,35 @@ export default {
       }
     },
 
+    getworkStatus() {
+      if (this.workStatusList.length == 0) {
+        genericApi
+            .get('/cargoes/work_status/?format=json')
+            .then((response) => {
+              for (let i = 0; i < response.data.length; i++) {
+                this.workStatusDict[response.data[i].name] = response.data[i].id
+                this.workStatusList.push(response.data[i].name)
+              }
+            })
+            .catch((error) => console.log(error));
+      }
+    },
+
+    getacceptType() {
+      if (this.acceptTypeList.length == 0) {
+        genericApi
+            .get('/cargoes/accept_type/?format=json')
+            .then((response) => {
+              for (let i = 0; i < response.data.length; i++) {
+                this.acceptTypeDict[response.data[i].name] = response.data[i].id
+                this.acceptTypeList.push(response.data[i].name)
+              }
+            })
+            .catch((error) => console.log(error));
+      }
+    },
+
+
     getfilials() {
       if (this.filialsList.length == 0) {
         genericApi
@@ -495,19 +530,46 @@ export default {
     // closes the dialog pop up and resets index until its opened again
     close() {
       this.dialog = false;
+      this.name = ""
+      this.shipping_date = ""
+      this.shipping_type = ""
+      this.felial = ""
+      this.sender_phone = ""
+      this.recipient_phone = ""
+      this.status = ""
+      this.weight = ""
+      this.weight_type = ""
+      this.delivery_price = ""
+      this.customs_clearance = ""
+      this.extra_expenses = ""
+      this.sender_country = ""
+      this.recipient_country = ""
+      this.sender_city = ""
+      this.recipient_city = ""
+      this.delivery_day = ""
+      this.pay_type = ""
+      this.pay_status = ""
+      this.payment_date = ""
+      this.total_price = ""
+      this.work_status = ""
+      this.accept_type = ""
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1; // resets the index that controls the title text in the new item pop up
       }, 300);
     },
 
-    save() {
+    send(data) {
+      this.onCreate(data);
+    },
+
+    async save() {
       let body = {
         'name': this.name,
         'shipping_date': this.shipping_date,
         'shipping_type': this.shippingTypeDict[this.shipping_type],
-        'sender': this.userDict[this.sender],
-        'recipient': this.userDict[this.recipient],
+        'sender_phone': this.sender_phone,
+        'recipient_phone': this.recipient_phone,
         'status': this.statusDict[this.status],
         'weight': this.weight,
         'weight_type': this.weight_type,
@@ -523,18 +585,22 @@ export default {
         'pay_status': this.payStatusDict[this.pay_status],
         'payment_date': this.payment_date,
         'total_price': this.total_price,
-        'felial': this.filialsDict[this.felial]
+        'felial': this.filialsDict[this.felial],
+        'work_status': this.workStatusDict[this.work_status],
+        'accept_type': this.acceptTypeDict[this.accept_type]
       }
-      genericApi
+      let data = {}
+      await genericApi
           .post('cargoes/cargoes/', body, {
             body: body
           })
           .then((response) => {
-            console.log(response)
+            data = response.data
           })
           .catch((error) => {
             console.log(error)
           })
+      this.send(data)
       this.close();
     },
 

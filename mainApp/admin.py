@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Cargoes, Events, Shipment, PayType, PayStatus, Status
+from .models import Cargoes, Events, Shipment, PayType, PayStatus, Status, WorkStatus, AcceptType
 
 admin.site.register(Shipment)
 admin.site.register(PayType)
 admin.site.register(PayStatus)
 admin.site.register(Status)
-
+admin.site.register(WorkStatus)
+admin.site.register(AcceptType)
 
 class EventsInline(admin.StackedInline):
     model = Events

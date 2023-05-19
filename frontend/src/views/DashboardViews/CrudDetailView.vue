@@ -3,12 +3,12 @@
     <div class="bg-white">
       <div class="flex">
         <div>
-          <h2>Shipment: #{{ info.id }}</h2><br>
+          <h2>Посылка: #{{ info.id }}</h2><br>
           <span class="text-muted">{{ info.name }}</span>
         </div>
         <div>
           <img :src="info.qr_code" width="128" alt=""><br>
-          <span class="text-muted">scan it whit QR</span>
+          <span class="text-muted">Отсканируйте QR</span>
         </div>
       </div>
 
@@ -16,17 +16,17 @@
 
       <div class="pd-6 d-flex flex-row flex-root justify-space-between">
         <div class="d-flex flex-column mr-4">
-          <span class="mb-4 text-dark font-weight-bold">Customer/Sender</span>
-          <span class="mt-2">{{ info.sender }}</span>
-          <span class="text-muted font-size-md">{{ info.sender_country }}</span>
+          <span class="mb-4 text-dark font-weight-bold">Отправитель</span>
+          <span class="mt-2">{{ info.sender_phone }}</span>
+          <span class="text-muted font-size-md">{{ info.sender_country.name }}</span>
         </div>
         <div class="d-flex flex-column mr-4">
-          <span class="mb-4 text-dark font-weight-bold">Recipient</span>
-          <span class="mt-2">{{ info.recipient }}</span>
-          <span class="text-muted font-size-md">{{ info.recipient_country }}</span>
+          <span class="mb-4 text-dark font-weight-bold">Получатель</span>
+          <span class="mt-2">{{ info.recipient_phone }}</span>
+          <span class="text-muted font-size-md">{{ info.recipient_country.name }}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="mb-4 text-dark font-weight-bold">Status</span>
+          <span class="mb-4 text-dark font-weight-bold">Статус</span>
           <span class="mt-2 text-muted">{{ info.status.name }}</span>
         </div>
       </div>
@@ -35,75 +35,83 @@
 
       <div class="d-flex flex-row flex-root justify-space-between">
         <div class="d-flex flex-column">
-          <span class="mb-4 text-dark font-weight-bold">Shipment Type</span>
+          <span class="mb-4 text-dark font-weight-bold">Способ отгрузки</span>
           <span class="opacity-70">{{ info.shipping_type.name }}</span>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">Current branch</span>
+          <span class="mb-4 text-dark font-weight-bold">Филиал</span>
           <a class="opacity-70" href="http://ajamcargo.com/admin/branchs/1">{{ info.felial.name }}</a>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">Created date</span>
+          <span class="mb-4 text-dark font-weight-bold">Дата создания</span>
           <span class="opacity-70">{{ info.date_create }}</span>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">Shipping Date</span>
+          <span class="mb-4 text-dark font-weight-bold">Дата отправки</span>
           <span class="opacity-70">{{ info.shipping_date }}</span>
         </div>
       </div>
 
       <div class="pt-6 d-flex flex-row justify-space-between">
         <div class="d-flex flex-column">
-          <span class="mb-4 text-dark font-weight-bold">Total Weight</span>
+          <span class="mb-4 text-dark font-weight-bold">Итоговый размер(вес)</span>
           <span class="text-muted font-weight-bolder font-size-lg">{{ info.weight }} {{ info.weight_type }}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="mb-4 text-dark font-weight-bold">Shipping Cost</span>
+          <span class="mb-4 text-dark font-weight-bold">Стоимость доставки</span>
           <span class="text-muted font-weight-bolder font-size-lg">${{ info.delivery_price }}</span>
         </div>
 
         <div class="d-flex flex-column">
-          <span class="mb-4 text-dark font-weight-bold">Customs clearance</span>
+          <span class="mb-4 text-dark font-weight-bold">Растаможка</span>
           <span class="text-muted font-weight-bolder font-size-lg">${{ info.customs_clearance }}</span>
         </div>
 
         <div class="d-flex flex-column">
-          <span class="mb-4 text-dark font-weight-bold">Additional Expenses</span>
+          <span class="mb-4 text-dark font-weight-bold">Дополнительные расходы</span>
           <span class="text-muted font-weight-bolder font-size-lg">${{ info.extra_expenses }}</span>
         </div>
       </div>
 
       <div class="pt-6 d-flex justify-space-between">
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">From Country</span>
-          <span class="text-muted font-weight-bolder font-size-lg">{{ info.sender_country }}  </span>
+          <span class="mb-4 text-dark font-weight-bold">Страна отправителя</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.sender_country.name }}  </span>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">To Country</span>
-          <span class="text-muted font-weight-bolder font-size-lg">{{ info.recipient_country }}  </span>
+          <span class="mb-4 text-dark font-weight-bold">Страна получателя</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.recipient_country.name }}  </span>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">From Region</span>
-          <span class="text-muted font-weight-bolder font-size-lg">{{ info.sender_city }}  </span>
+          <span class="mb-4 text-dark font-weight-bold">Регион отправителя</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.sender_city.name }}  </span>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">To Region</span>
-          <span class="text-muted font-weight-bolder font-size-lg">{{ info.recipient_city }} </span>
+          <span class="mb-4 text-dark font-weight-bold">Регион получателя</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.recipient_city.name }} </span>
         </div>
       </div>
 
-      <div class="pt-6 pd-6 d-flex flex-row flex-root justify-space-between">
+      <div class="pt-6 d-flex justify-space-between">
         <div class="d-flex flex-column">
-          <span class="mb-4 text-dark font-weight-bold">Delivery days</span>
-          <span class="opacity-70">{{ info.delivery_day }}</span>
+          <span class="mb-4 text-dark font-weight-bold">Длительность доставки</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.delivery_day }}</span>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">Payment type</span>
-          <span class="opacity-70">{{ info.pay_type.name }}</span>
+          <span class="mb-4 text-dark font-weight-bold">Способ оплаты</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.pay_type.name }}</span>
         </div>
         <div class="d-flex flex-column flex-root">
-          <span class="mb-4 text-dark font-weight-bold">Payment status</span>
-          <span class="opacity-70">{{ info.pay_status.name }}</span>
+          <span class="mb-4 text-dark font-weight-bold">Статус оплаты</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.pay_status.name }}</span>
+        </div>
+        <div class="d-flex flex-column flex-root">
+          <span class="mb-4 text-dark font-weight-bold">Статус в базе</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.work_status.name }}</span>
+        </div>
+        <div class="d-flex flex-column flex-root">
+          <span class="mb-4 text-dark font-weight-bold">Способ получения</span>
+          <span class="text-muted font-weight-bolder font-size-lg">{{ info.accept_type.name }}</span>
         </div>
       </div>
       <br>
@@ -114,10 +122,10 @@
             <table class="table">
               <thead>
               <tr>
-                <th class="font-weight-bold text-muted text-uppercase">Payment Type</th>
-                <th class="font-weight-bold text-muted text-uppercase">PAYMENT STATUS</th>
-                <th class="font-weight-bold text-muted text-uppercase">PAYMENT DATE</th>
-                <th class="text-right font-weight-bold text-muted text-uppercase">TOTAL COST</th>
+                <th class="font-weight-bold text-muted text-uppercase">СПОСОБ ОПЛАТЫ</th>
+                <th class="font-weight-bold text-muted text-uppercase">СТАТУС ОПЛАТЫ</th>
+                <th class="font-weight-bold text-muted text-uppercase">ДАТА ОПЛАТЫ</th>
+                <th class="text-right font-weight-bold text-muted text-uppercase">ИТОГО</th>
               </tr>
               </thead>
               <tbody>
@@ -137,7 +145,7 @@
 
     <div class="bg-white">
       <h3 class=" mb-2 align-start">
-        <span class="font-weight-bold font-size-h4 text-dark-75">Shipment Status Log</span>
+        <span class="font-weight-bold font-size-h4 text-dark-75">История изменения статуса</span>
       </h3>
 
       <v-timeline v-for="event in log"
@@ -145,7 +153,7 @@
         <v-timeline-item
         >
           <span slot="opposite">{{ event.date }}</span>
-          Changed from: "{{ event.before }}" to: "{{ event.after }}"
+          Изменено с: "{{ event.before }}" на: "{{ event.after }}"
         </v-timeline-item>
       </v-timeline>
     </div>

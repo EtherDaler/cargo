@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Felials, ExtraAdresFelials, Positions, Crew
+from user.serializers import UserSerializer
 from django.db import models
 
 
@@ -24,6 +25,7 @@ class ExtraAdresFelialsSerializer(serializers.ModelSerializer):
 
 
 class FelialsSerializer(serializers.ModelSerializer):
+    owner = UserSerializer()
     crew = CrewSerializer(many=True)
     extra_adres = ExtraAdresFelialsSerializer(many=True)
 

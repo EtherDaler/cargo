@@ -55,6 +55,7 @@ export default {
   props: {
     tableName: String,
     url: String,
+    onCreate: Function,
   },
   data: () => ({
     snack: false,
@@ -120,24 +121,31 @@ export default {
       this.dialog = false;
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
+        this.name = "";
         this.editedIndex = -1; // resets the index that controls the title text in the new item pop up
       }, 300);
     },
 
-    save() {
+    send(data) {
+      this.onCreate(data)
+    },
+
+    async save() {
       let body = {
         'name': this.name,
       }
-      genericApi
+      let data = {}
+      await genericApi
           .post('cargoes/' + this.url, body, {
             body: body
           })
           .then((response) => {
-            console.log(response)
+            data = response.data
           })
           .catch((error) => {
             console.log(error)
           })
+      this.send(data)
       this.close();
     },
 

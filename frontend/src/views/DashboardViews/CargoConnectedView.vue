@@ -1,9 +1,11 @@
 <template>
   <v-container fill-height>
-    <ConnectedTableView tableName="Statuses" soloName="Status" url="status/"></ConnectedTableView>
-    <ConnectedTableView tableName="Shipments" soloName="Shipment" url="shipment/"></ConnectedTableView>
-    <ConnectedTableView tableName="Payment types" soloName="Payment type" url="pay_type/"></ConnectedTableView>
-    <ConnectedTableView tableName="Payment statuses" soloName="Payment status" url="pay_status/"></ConnectedTableView>
+    <ConnectedTableView tableName="Статусы посылок" soloName="Статус посылки" url="status/"></ConnectedTableView>
+    <ConnectedTableView tableName="Способы доставки" soloName="Способ доставки" url="shipment/"></ConnectedTableView>
+    <ConnectedTableView tableName="Способы оплаты" soloName="Способ оплаты" url="pay_type/"></ConnectedTableView>
+    <ConnectedTableView tableName="Статусы оплаты" soloName="Статус оплаты" url="pay_status/"></ConnectedTableView>
+    <ConnectedTableView tableName="Статус" soloName="Статус" url="work_status/"></ConnectedTableView>
+    <ConnectedTableView tableName="Тип выдачи" soloName="Тип выдачи" url="accept_type/"></ConnectedTableView>
   </v-container>
 </template>
 

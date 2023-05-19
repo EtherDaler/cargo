@@ -102,7 +102,7 @@ export default [
 				component: () => import(`@/views/DashboardViews/DataTableView.vue`),
 			},
 			{
-				path: 'crud-detail/:crudSlug',
+				path: 'cargoes/:crudSlug',
 				meta: {
 					name: 'CrudDetail',
 				},

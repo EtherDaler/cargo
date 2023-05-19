@@ -2,10 +2,11 @@ import {userApi} from "@/plugins/axios";
 
 
 async function setUser({commit}) {
+    let user = {}
     let response = await userApi
         .get('/profile/?format=json')
         .then((response) => {
-            const user = response.data[0]
+            user = response.data[0]
             let role = ''
             if (user['admin']) {
                 role = 'admin'

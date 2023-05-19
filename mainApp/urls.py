@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
 from .views import CargoesViewSet, MyCargoesViewSet, LastCargoesView, StatusViewSet, ShipmentViewSet, PayStatusViewSet,\
-    PayTypeViewSet
+    PayTypeViewSet, WorkStatusViewSet, AcceptTypeViewSet
 
 
 class Router(DefaultRouter):
@@ -20,5 +20,7 @@ router.register('shipment', ShipmentViewSet)
 router.register('pay_status', PayStatusViewSet)
 router.register('pay_type', PayTypeViewSet)
 router.register('my_cargoes', MyCargoesViewSet)
+router.register('work_status', WorkStatusViewSet)
+router.register('accept_type', AcceptTypeViewSet)
 urlpatterns = router.urls
 urlpatterns.append(path('last_cargoes/', LastCargoesView.as_view(), name='last_cargoes'))

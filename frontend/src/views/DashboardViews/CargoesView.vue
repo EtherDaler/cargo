@@ -30,7 +30,7 @@
               <!-- delete dialog menu popup -->
               <!-- this does the same as my delete button below  -->
 
-              <CargoCreateVue/>
+              <CargoCreateVue :onCreate="onUpdateData"></CargoCreateVue>
             </v-toolbar>
           </template>
           <!-- TABLE ACTIONS -->
@@ -38,7 +38,7 @@
           this allows us to pass in the edit and delete icons to the actions column
           we then use the item object passed with scoped slot from v-table(child)-->
           <template v-slot:[`item.name`]="{ item }">
-            <router-link :to="'/crud-detail/' + item.slug" class="text-dec-none">
+            <router-link :to="'cargoes/' + item.slug" class="text-dec-none">
               {{ item.name }}
             </router-link>
           </template>
@@ -85,40 +85,16 @@ export default {
         sortable: false,
         value: "id",
       },
-      { text: "Name", value: "name" },
-      { text: "Weight", value: "weight" },
-      { text: "Status", value: "status.name" },
-      { text: "Felial", value: "felial.name" },
-      { text: "Days for delivery", value: "delivery_day", sortable: false },
-      { text: "From", value: "recipient_city" },
-      { text: "Price", value: "total_price" },
+      { text: "Название", value: "name" },
+      { text: "Статус", value: "work_status.name" },
+      { text: "Способ выдачи", value: "accept_type.name" },
+      { text: "Филиал", value: "felial.name" },
+      { text: "Отправитель", value: "sender_phone" },
+      { text: "Стоимость доставки", value: "total_price", sortable: false },
+      { text: "Способ оплаты", value: "pay_type.name" },
+      { text: "Дата отгрузки", value: "shipping_date" },
     ],
     editedIndex: -1,
-    //this is the new item created by copying the userList item. its used in editing menu and methods
-    defaultItem: {
-      name: "",
-      shipping_date: "",
-      shipping_type: "",
-      felial: "",
-      sender: "",
-      recipient: "",
-      status: "",
-      weight: "",
-      weight_type: "",
-      delivery_price: "",
-      customs_clearance: "",
-      extra_expenses: "",
-      sender_country: "",
-      recipient_country: "",
-      sender_city: "",
-      recipient_city: "",
-      delivery_day: "",
-      pay_type: "",
-      pay_status: "",
-      payment_date: "",
-      total_price: "",
-    },
-    //second table
     dialogDelete: false,
   }),
 
@@ -141,6 +117,10 @@ export default {
             this.cargoesList = response.data
           })
           .catch((error) => console.log(error));
+    },
+    onUpdateData(data) {
+      this.cargoesList.push(data);
+      console.log(data)
     }
   },
 };

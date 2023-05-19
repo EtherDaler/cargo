@@ -30,7 +30,7 @@
               <!-- delete dialog menu popup -->
               <!-- this does the same as my delete button below  -->
 
-              <FilialCreateView/>
+              <FilialCreateView :onCreate="onUpdateData"></FilialCreateView>
             </v-toolbar>
           </template>
           <!-- TABLE ACTIONS -->
@@ -135,6 +135,9 @@ export default {
             this.filialsList = response.data
           })
           .catch((error) => console.log(error));
+    },
+    onUpdateData(data) {
+      this.filialsList.push(data);
     }
   },
 };

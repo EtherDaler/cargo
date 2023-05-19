@@ -36,7 +36,7 @@
 					this allows us to pass in the edit and delete icons to the actions column
 					we then use the item object passed with scoped slot from v-table(child)-->
           <template v-slot:[`item.name`]="{ item }">
-            <router-link :to="'/crud-detail/' + item.slug" class="text-dec-none">
+            <router-link :to="'/cargoes/' + item.slug" class="text-dec-none">
               {{ item.name }}
             </router-link>
           </template>
@@ -85,34 +85,11 @@ export default {
 			{ text: "Status", value: "status.name" },
 			{ text: "Felial", value: "felial.name" },
 			{ text: "Days for delivery", value: "delivery_day", sortable: false },
-			{ text: "From", value: "recipient_city" },
+			{ text: "From", value: "sender_city.name" },
 			{ text: "Price", value: "total_price" },
 		],
 		editedIndex: -1,
 		//this is the new item created by copying the userList item. its used in editing menu and methods
-		defaultItem: {
-      name: "",
-      shipping_date: "",
-      shipping_type: "",
-      felial: "",
-      sender: "",
-      recipient: "",
-      status: "",
-      weight: "",
-      weight_type: "",
-      delivery_price: "",
-      customs_clearance: "",
-      extra_expenses: "",
-      sender_country: "",
-      recipient_country: "",
-      sender_city: "",
-      recipient_city: "",
-      delivery_day: "",
-      pay_type: "",
-      pay_status: "",
-      payment_date: "",
-      total_price: "",
-		},
 		//second table
 		dialogDelete: false,
 	}),

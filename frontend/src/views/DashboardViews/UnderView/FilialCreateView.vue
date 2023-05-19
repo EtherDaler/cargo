@@ -28,7 +28,7 @@
                   v-model="owner"
                   :rules="[required]"
                   @click="getusers"
-                  label="Shipping Type"
+                  label="Владелец"
                   :items="userList"
               ></v-autocomplete>
             </v-col>
@@ -36,7 +36,7 @@
               <v-text-field
                   v-model="name"
                   :rules="[required]"
-                  label="Name"
+                  label="Название"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
@@ -50,7 +50,7 @@
               <v-text-field
                   v-model="phone"
                   :rules="[required]"
-                  label="Phone"
+                  label="Телефон"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
@@ -59,7 +59,7 @@
                   v-model="country"
                   :rules="[required]"
                   @click="getcountries"
-                  label="Country"
+                  label="Страна"
                   :items="countriesList"
               ></v-autocomplete>
             </v-col>
@@ -69,7 +69,7 @@
                   v-model="city"
                   :rules="[required]"
                   @click="getcities(country)"
-                  label="City"
+                  label="Город"
                   :items="citiesList"
               ></v-autocomplete>
             </v-col>
@@ -77,55 +77,55 @@
               <v-text-field
                   v-model="adres"
                   :rules="[required]"
-                  label="Address"
+                  label="Адресс"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-checkbox
                   v-model="status"
-                  label="Status"
+                  label="Статус"
               />
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="pickup_price"
                   :rules="[required, numeric]"
-                  label="Pickup price"
+                  label="Стоимость самовывоза"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="user_delivery_price"
                   :rules="[required, numeric]"
-                  label="User Delivery Price"
+                  label="Стоимость пользовательской доставки"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="default_price"
                   :rules="[required, numeric]"
-                  label="Default price"
+                  label="Стоимость доставки по умолчанию"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="default_tax"
                   :rules="[required, numeric]"
-                  label="Default tax"
+                  label="Налог по умолчанию"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="default_safe"
                   :rules="[required, numeric]"
-                  label="Default Safe"
+                  label="Страхование по умолчанию"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="back_deliv_price"
                   :rules="[required, numeric]"
-                  label="Back delivery price"
+                  label="Стоимость возвращенной доставки по умолчанию"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -151,6 +151,9 @@ import {genericApi} from "@/plugins/axios";
 
 export default {
   name: "FilialCreateView",
+  props: {
+    onCreate: Function,
+  },
   data: () => ({
     snack: false,
     max25chars: (v) => v.length <= 25 || "Input too long!",
@@ -274,13 +277,31 @@ export default {
     // closes the dialog pop up and resets index until its opened again
     close() {
       this.dialog = false;
+      this.owner = ""
+      this.name = ""
+      this.email = ""
+      this.phone = ""
+      this.country = ""
+      this.city = ""
+      this.adres = ""
+      this.status = ""
+      this.pickup_price = ""
+      this.user_delivery_price = ""
+      this.default_price = ""
+      this.default_tax = ""
+      this.default_safe = ""
+      this.back_deliv_price = ""
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1; // resets the index that controls the title text in the new item pop up
       }, 300);
     },
 
-    save() {
+    send(data){
+      this.onCreate(data)
+    },
+
+    async save() {
       //if editedIndex is greater than -1 then the item we are trying to save is an already exisiting item, so we update the table differently
       //when you open the editItem menu it sets the index to the items index, which then is used here to determine what to do
       let body = {
@@ -299,16 +320,18 @@ export default {
         'default_safe': this.default_safe,
         'back_deliv_price': this.back_deliv_price,
       }
-      genericApi
+      let data = {}
+      await genericApi
           .post('felials/', body, {
             body: body
           })
           .then((response) => {
-            console.log(response)
+            data = response.data
           })
           .catch((error) => {
             console.log(error)
           })
+      this.send(data)
       this.close();
     },
 

@@ -17,7 +17,7 @@
     <v-card>
       <v-card-title>
         <!-- changes title based on formTitle index, -1 shows 'New item' any other index shows 'Edit Item' as the title -->
-        <span class="text-h5">Add Country</span>
+        <span class="text-h5">Add City</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -26,7 +26,7 @@
               <v-text-field
                   v-model="name"
                   :rules="[required]"
-                  label="Name"
+                  label="Название"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
@@ -35,7 +35,7 @@
                   v-model="country"
                   @click="getCountries"
                   :rules="[required]"
-                  label="Country"
+                  label="Страна"
                   :items="countriesList"
               ></v-autocomplete>
             </v-col>
@@ -62,6 +62,9 @@ import {genericApi} from "@/plugins/axios";
 
 export default {
   name: "CityCreateView",
+  props: {
+    onCreate: Function,
+  },
   data: () => ({
     snack: false,
     max25chars: (v) => v.length <= 25 || "Input too long!",
@@ -141,29 +144,37 @@ export default {
     // closes the dialog pop up and resets index until its opened again
     close() {
       this.dialog = false;
+      this.name = ""
+      this.country = ""
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1; // resets the index that controls the title text in the new item pop up
       }, 300);
     },
 
-    save() {
+    send(data) {
+      this.onCreate(data)
+    },
+
+    async save() {
       //if editedIndex is greater than -1 then the item we are trying to save is an already exisiting item, so we update the table differently
       //when you open the editItem menu it sets the index to the items index, which then is used here to determine what to do
       let body = {
         'name': this.name,
         'country': this.countriesDict[this.country],
       }
-      genericApi
+      let data = {}
+      await genericApi
           .post('locations/cities/', body, {
             body: body
           })
           .then((response) => {
-            console.log(response)
+            data = response.data
           })
           .catch((error) => {
             console.log(error)
           })
+      this.send(data)
       this.close();
     },
 

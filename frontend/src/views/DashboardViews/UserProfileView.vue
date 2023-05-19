@@ -177,14 +177,14 @@
                 <template v-slot:crdInner>
                   <div class="flex justify-space-between align-end row ma-0">
                     <div>
-                      From {{ cargo.sender_country }}, {{ cargo.sender_city }}
+                      From {{ cargo.sender_country.name }}, {{ cargo.sender_city.name }}
                       <p>Price {{ cargo.total_price }} $</p>
                     </div>
                     <div>
                       <img :src="cargo.qr_code" alt="" width="64" left>
                     </div>
                   </div>
-                  <router-link :to="'/crud-detail/' + cargo.slug" class="text-dec-none">
+                  <router-link :to="'/cargoes/' + cargo.slug" class="text-dec-none">
                     <v-btn color="alert" rounded class="font-weight-light">
                       More
                     </v-btn>
