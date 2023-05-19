@@ -47,7 +47,7 @@
           </template>
           <template v-slot:no-data>
             <!-- this is the actions reset button that shows when you delete -->
-            <v-btn color="primary" @click="getcargoes"> Reset </v-btn>
+            <v-btn color="primary" @click="getfilials"> Reset </v-btn>
           </template>
         </v-data-table>
       </v-col>
