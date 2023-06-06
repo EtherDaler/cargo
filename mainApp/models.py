@@ -105,8 +105,8 @@ class Cargoes(models.Model):
     weight = models.PositiveIntegerField(verbose_name="Общий вес")
     weight_type = models.CharField(max_length=255, verbose_name="Единица измерения")
     delivery_price = models.PositiveIntegerField(verbose_name="Стоимость доставки")
-    customs_clearance = models.PositiveIntegerField(verbose_name="Растаможка")
-    extra_expenses = models.PositiveIntegerField(verbose_name="Дополнительные расходы")
+    customs_clearance = models.PositiveIntegerField(verbose_name="Растаможка", default=0)
+    extra_expenses = models.PositiveIntegerField(verbose_name="Дополнительные расходы", default=0)
     sender_country = models.ForeignKey(Countries, on_delete=models.SET_NULL, null=True,
                                        verbose_name="Страна отправителя", related_name="cargoes_send")
     recipient_country = models.ForeignKey(Countries, on_delete=models.SET_NULL, null=True,
@@ -116,9 +116,9 @@ class Cargoes(models.Model):
     recipient_city = models.ForeignKey(Cities, on_delete=models.SET_NULL, null=True, verbose_name="Город получателя",
                                        related_name="cargoes_recipient")
     delivery_day = models.PositiveIntegerField(verbose_name="Дни доставки")
-    pay_type = models.ForeignKey(PayType, on_delete=models.SET_NULL, null=True, verbose_name="Способ оплаты")
-    pay_status = models.ForeignKey(PayStatus, on_delete=models.SET_NULL, null=True, verbose_name="Статус оплаты")
-    payment_date = models.DateField(verbose_name="Дата оплаты")
+    pay_type = models.ForeignKey(PayType, on_delete=models.SET_NULL, null=True, verbose_name="Способ оплаты", blank=True)
+    pay_status = models.ForeignKey(PayStatus, on_delete=models.SET_NULL, null=True, verbose_name="Статус оплаты", blank=True)
+    payment_date = models.DateField(verbose_name="Дата оплаты", blank=True, null=True)
     total_price = models.PositiveIntegerField(verbose_name="Общая стоимость")
     qr_code = models.ImageField(upload_to="mainApp/images/qr_code", verbose_name="QR", blank=True)
     bar_code = models.ImageField(upload_to="mainApp/images/bar_code", verbose_name="BAR", blank=True)

@@ -26,14 +26,14 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="name"
-                  label="Название"
+                  label="Название *"
                   :rules="[required]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="shipping_date"
-                  label="Дата отправки"
+                  label="Дата отправки *"
                   :rules="[required]"
                   v-mask="'####-##-##'"
               ></v-text-field>
@@ -43,7 +43,7 @@
                   autocomplete="new-password"
                   v-model="shipping_type"
                   @click="getshipmentType"
-                  label="Способ отгрузки"
+                  label="Способ отгрузки *"
                   :items="shippingTypeList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -53,7 +53,7 @@
                   autocomplete="new-password"
                   v-model="felial"
                   @click="getfilials"
-                  label="Филиал"
+                  label="Филиал *"
                   :items="filialsList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -61,7 +61,7 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="sender_phone"
-                  label="Телефон отправителя"
+                  label="Телефон отправителя *"
                   :rules="[required]"
               ></v-text-field>
             </v-col>
@@ -70,7 +70,7 @@
                   autocomplete="new-password"
                   v-model="sender_country"
                   @click="getcountries"
-                  label="Страна отправителя"
+                  label="Страна отправителя *"
                   :items="countriesList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -80,7 +80,7 @@
                   autocomplete="new-password"
                   v-model="sender_city"
                   @click="getcities(sender_country)"
-                  label="Город отправителя"
+                  label="Город отправителя *"
                   :items="citiesList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -88,7 +88,7 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="recipient_phone"
-                  label="Телефон получателя"
+                  label="Телефон получателя *"
                   :rules="[required]"
               ></v-text-field>
             </v-col>
@@ -97,7 +97,7 @@
                   autocomplete="new-password"
                   v-model="recipient_country"
                   @click="getcountries"
-                  label="Старана получателя"
+                  label="Старана получателя *"
                   :items="countriesList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -107,7 +107,7 @@
                   autocomplete="new-password"
                   v-model="recipient_city"
                   @click="getcities2(recipient_country)"
-                  label="Город получателя"
+                  label="Город получателя *"
                   :items="citiesList2"
                   :rules="[required]"
               ></v-autocomplete>
@@ -117,7 +117,7 @@
                   autocomplete="new-password"
                   v-model="status"
                   @click="getstatus"
-                  label="Статус"
+                  label="Статус *"
                   :items="statusList"
                   :rules="[required]"
               ></v-autocomplete>
@@ -125,28 +125,28 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="weight"
-                  label="Вес"
+                  label="Вес *"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="weight_type"
-                  label="Единица измерения веса"
+                  label="Единица измерения веса *"
                   :rules="[required]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="delivery_day"
-                  label="Длительность доставки"
+                  label="Длительность доставки *"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="delivery_price"
-                  label="Стоимость доставки"
+                  label="Стоимость доставки *"
                   :rules="[required, numeric]"
               ></v-text-field>
             </v-col>
@@ -154,14 +154,14 @@
               <v-text-field
                   v-model="customs_clearance"
                   label="Растаможка"
-                  :rules="[required, numeric]"
+                  :rules="[numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="extra_expenses"
                   label="Дополнительные расходы"
-                  :rules="[required, numeric]"
+                  :rules="[numeric]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
@@ -171,7 +171,7 @@
                   @click="getpayType"
                   label="Способ оплаты"
                   :items="payTypeList"
-                  :rules="[required]"
+                  :rules="[]"
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="6" md="4">
@@ -179,7 +179,7 @@
                   autocomplete="new-password"
                   v-model="pay_status"
                   @click="getpayStatus"
-                  :rules="[required]"
+                  :rules="[]"
                   label="Статус оплаты"
                   :items="payStatusList"
               ></v-autocomplete>
@@ -187,7 +187,7 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                   v-model="payment_date"
-                  :rules="[required]"
+                  :rules="[]"
                   label="Дата оплаты"
                   v-mask="'####-##-##'"
               ></v-text-field>
@@ -197,7 +197,7 @@
                   autocomplete="new-password"
                   v-model="accept_type"
                   @click="getacceptType"
-                  :rules="[required]"
+                  :rules="[]"
                   label="Способ получения"
                   :items="acceptTypeList"
               ></v-autocomplete>
@@ -207,7 +207,7 @@
                   autocomplete="new-password"
                   v-model="work_status"
                   @click="getworkStatus"
-                  :rules="[required]"
+                  :rules="[]"
                   label="Статус в базе"
                   :items="workStatusList"
               ></v-autocomplete>

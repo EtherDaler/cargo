@@ -112,8 +112,8 @@ class CargoesSerializer(serializers.HyperlinkedModelSerializer):
 
 class CargoesCreateSerializer(serializers.HyperlinkedModelSerializer):
     felial = serializers.PrimaryKeyRelatedField(queryset=Felials.objects.all(), many=False)
-    pay_type = serializers.PrimaryKeyRelatedField(queryset=PayType.objects.all(), many=False)
-    pay_status = serializers.PrimaryKeyRelatedField(queryset=PayStatus.objects.all(), many=False)
+    pay_type = serializers.PrimaryKeyRelatedField(queryset=PayType.objects.all(), many=False, required=False)
+    pay_status = serializers.PrimaryKeyRelatedField(queryset=PayStatus.objects.all(), many=False, required=False)
     status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), many=False)
     shipping_type = serializers.PrimaryKeyRelatedField(queryset=Shipment.objects.all(), many=False)
     #recipient = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=False)
@@ -122,8 +122,8 @@ class CargoesCreateSerializer(serializers.HyperlinkedModelSerializer):
     recipient_country = serializers.PrimaryKeyRelatedField(queryset=Countries.objects.all(), many=False)
     sender_city = serializers.PrimaryKeyRelatedField(queryset=Cities.objects.all(), many=False)
     recipient_city = serializers.PrimaryKeyRelatedField(queryset=Cities.objects.all(), many=False)
-    work_status = serializers.PrimaryKeyRelatedField(queryset=WorkStatus.objects.all(), many=False)
-    accept_type = serializers.PrimaryKeyRelatedField(queryset=AcceptType.objects.all(), many=False)
+    work_status = serializers.PrimaryKeyRelatedField(queryset=WorkStatus.objects.all(), many=False, required=False)
+    accept_type = serializers.PrimaryKeyRelatedField(queryset=AcceptType.objects.all(), many=False, required=False)
 
     class Meta:
         model = Cargoes
